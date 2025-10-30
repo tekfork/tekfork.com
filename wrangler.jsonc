@@ -1,0 +1,9 @@
+{
+  "name": "tekfork-website",
+  "account_id": "400ab263119a4e6427350117bb77f9f5",
+  "compatibility_date": "2025-10-27",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+  },
+}

@@ -1,0 +1,56 @@
+---
+import "../styles/global.css";
+import { Image } from "astro:assets";
+import Icon from "../unoptimized_images/icon_transparent.svg";
+---
+
+<html lang="en" data-theme="abyss">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>TEKFORK LLC</title>
+  </head>
+  <body class="min-h-screen bg-base-100 text-base-content">
+    <header
+      class="navbar bg-base-200/60 backdrop-blur supports-backdrop-filter:bg-base-200/60"
+    >
+      <div class="mflex flex-col justify-start px-4 xl:px-20">
+        <div class="flex flex-col items-center justify-center gap-1 py-3">
+          <Image
+            src={Icon}
+            alt="TEKFORK logo"
+            aria-hidden="true"
+            loading="eager"
+            class="w-20"
+          />
+
+          <div class="text-xl font-bold tracking-tight">TEKFORK</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4">
+      <section class="hero min-h-[70vh]">
+        <div class="hero-content text-center">
+          <div class="max-w-2xl">
+            <h1 class="text-4xl leading-tight font-extrabold md:text-6xl">
+              Discovering the possibilities
+            </h1>
+            <p class="py-6 text-lg opacity-80">
+              A think tank, sandbox, and playground for many ideas.
+            </p>
+            <p class="font-semibold text-primary">Think it, fork it!</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-base-300/60">
+      <aside class="container mx-auto px-4 py-8 text-center text-sm opacity-70">
+        © {new Date().getFullYear()} TEKFORK LLC - All Rights Reserved
+      </aside>
+    </footer>
+  </body>
+</html>
