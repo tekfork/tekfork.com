@@ -1,0 +1,39 @@
+name: Deploy to Prod
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package*.json'
+      - 'astro.config.*'
+      - 'wrangler.jsonc'
+      - '.assetsignore'
+      - '.github/workflows/deploy-prod.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          PUBLIC_API_BASE: ${{ vars.PUBLIC_API_BASE }}
+
+      - name: Deploy to Cloudflare (prod)
+        run: npx wrangler deploy --env prod
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -1,0 +1,39 @@
+name: Deploy to Dev
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package*.json'
+      - 'astro.config.*'
+      - 'wrangler.jsonc'
+      - '.assetsignore'
+      - '.github/workflows/deploy-dev.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          PUBLIC_API_BASE: ${{ vars.PUBLIC_API_BASE }}
+
+      - name: Deploy to Cloudflare (dev)
+        run: npx wrangler deploy --env dev
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
